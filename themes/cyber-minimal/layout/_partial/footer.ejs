@@ -1,0 +1,22 @@
+<footer class="cyber-footer">
+  <div class="footer-content">
+    <div class="copyright">
+      &copy; <%= new Date().getFullYear() %> <%= config.author || config.title %>
+      <% if (config.since && config.since < new Date().getFullYear()) { %>
+        - <%= new Date().getFullYear() %>
+      <% } %>
+      | Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      | Theme <a href="https://github.com/1jinbo/Vision" target="_blank">Cyber Minimal</a>
+    </div>
+    
+    <% if (theme.social) { %>
+      <div class="social-links">
+        <% for (const [platform, url] of Object.entries(theme.social)) { %>
+          <a href="<%= url %>" class="social-link" target="_blank" rel="noopener">
+            <i class="fab fa-<%= platform.toLowerCase() %>"></i>
+          </a>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+</footer>

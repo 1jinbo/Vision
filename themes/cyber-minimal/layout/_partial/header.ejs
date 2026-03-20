@@ -1,0 +1,21 @@
+<header class="cyber-header">
+  <div class="header-content">
+    <a href="<%- url_for('/') %>" class="site-title">
+      <%= config.title %>
+    </a>
+    
+    <% if (config.subtitle) { %>
+      <p class="site-subtitle"><%= config.subtitle %></p>
+    <% } %>
+    
+    <nav class="cyber-nav">
+      <ul class="nav-list">
+        <% for (const [text, url] of Object.entries(theme.menu || {})) { %>
+          <li class="nav-item">
+            <a href="<%- url_for(url) %>"><%= text %></a>
+          </li>
+        <% } %>
+      </ul>
+    </nav>
+  </div>
+</header>

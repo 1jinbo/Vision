@@ -1,0 +1,73 @@
+<%- partial('_partial/header') %>
+
+<main class="cyber-main">
+  <div class="cyber-content">
+    <% if (page.posts && page.posts.length > 0) { %>
+      <% page.posts.each(function(post) { %>
+        <article class="post-card">
+          <h2 class="post-title">
+            <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+          </h2>
+          
+          <div class="post-meta">
+            <% if (post.date) { %>
+              <span class="post-date">
+                <i class="far fa-calendar"></i>
+                <time datetime="<%= post.date.toISOString() %>">
+                  <%= date(post.date, config.date_format) %>
+                </time>
+              </span>
+            <% } %>
+            
+            <% if (post.categories && post.categories.length > 0) { %>
+              <span class="post-category">
+                <i class="far fa-folder"></i>
+                <% post.categories.each(function(category, index) { %>
+                  <a href="<%- url_for(category.path) %>"><%= category.name %></a>
+                  <% if (index < post.categories.length - 1) { %>, <% } %>
+                <% }) %>
+              </span>
+            <% } %>
+            
+            <% if (post.tags && post.tags.length > 0) { %>
+              <span class="post-tags">
+                <i class="fas fa-tags"></i>
+                <% post.tags.each(function(tag, index) { %>
+                  <a href="<%- url_for(tag.path) %>"><%= tag.name %></a>
+                  <% if (index < post.tags.length - 1) { %>, <% } %>
+                <% }) %>
+              </span>
+            <% } %>
+          </div>
+          
+          <% if (post.excerpt) { %>
+            <div class="post-excerpt">
+              <%- post.excerpt %>
+            </div>
+          <% } %>
+          
+          <a href="<%- url_for(post.path) %>" class="read-more">
+            阅读全文 <i class="fas fa-arrow-right"></i>
+          </a>
+        </article>
+      <% }) %>
+      
+      <!-- 分页 -->
+      <%- partial('_partial/pagination') %>
+    <% } else { %>
+      <div class="no-posts">
+        <h3>暂无文章</h3>
+        <p>这里还没有发布任何内容。</p>
+      </div>
+    <% } %>
+  </div>
+  
+  <!-- 侧边栏 -->
+  <% if (theme.sidebar && theme.sidebar !== 'none') { %>
+    <aside class="cyber-sidebar">
+      <%- partial('_partial/sidebar') %>
+    </aside>
+  <% } %>
+</main>
+
+<%- partial('_partial/footer') %>

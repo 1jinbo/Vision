@@ -1,0 +1,79 @@
+<% if (theme.widgets && theme.widgets.length > 0) { %>
+  <% theme.widgets.forEach(function(widget) { %>
+    <% if (widget === 'search') { %>
+      <section class="widget search-widget">
+        <h3 class="widget-title">搜索</h3>
+        <form class="search-form" action="/search" method="get">
+          <input type="text" name="q" class="search-input" placeholder="输入关键词...">
+          <button type="submit" class="search-button">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </section>
+    <% } %>
+    
+    <% if (widget === 'recent_posts') { %>
+      <section class="widget recent-posts-widget">
+        <h3 class="widget-title">最新文章</h3>
+        <ul class="recent-posts">
+          <% site.posts.sort('date', -1).limit(5).each(function(post) { %>
+            <li class="recent-post">
+              <a href="<%- url_for(post.path) %>" class="recent-post-title">
+                <%= post.title %>
+              </a>
+              <span class="recent-post-date">
+                <%= date(post.date, 'MM-DD') %>
+              </span>
+            </li>
+          <% }) %>
+        </ul>
+      </section>
+    <% } %>
+    
+    <% if (widget === 'categories') { %>
+      <section class="widget categories-widget">
+        <h3 class="widget-title">分类</h3>
+        <ul class="categories-list">
+          <% site.categories.sort('length', -1).each(function(category) { %>
+            <li class="category-item">
+              <a href="<%- url_for(category.path) %>" class="category-link">
+                <span class="category-name"><%= category.name %></span>
+                <span class="category-count">(<%= category.length %>)</span>
+              </a>
+            </li>
+          <% }) %>
+        </ul>
+      </section>
+    <% } %>
+    
+    <% if (widget === 'tags') { %>
+      <section class="widget tags-widget">
+        <h3 class="widget-title">标签</h3>
+        <div class="tag-cloud">
+          <% site.tags.sort('length', -1).limit(20).each(function(tag) { %>
+            <a href="<%- url_for(tag.path) %>" class="tag">
+              <%= tag.name %> (<%= tag.length %>)
+            </a>
+          <% }) %>
+        </div>
+      </section>
+    <% } %>
+  <% }) %>
+<% } %>
+
+<!-- 关于我部件 -->
+<section class="widget about-widget">
+  <h3 class="widget-title">关于</h3>
+  <div class="about-content">
+    <p>欢迎来到我的赛博空间！这里分享技术、思考和创意。</p>
+    <% if (theme.social) { %>
+      <div class="widget-social">
+        <% for (const [platform, url] of Object.entries(theme.social)) { %>
+          <a href="<%= url %>" class="social-link" target="_blank" rel="noopener">
+            <i class="fab fa-<%= platform.toLowerCase() %>"></i>
+          </a>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+</section>

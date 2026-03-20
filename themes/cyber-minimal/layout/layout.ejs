@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="<%= config.language %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><% if (page.title) { %><%= page.title %> | <% } %><%= config.title %></title>
+  
+  <!-- SEO -->
+  <%- partial('_partial/head/seo') %>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="<%- url_for(theme.css) %>/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="<%- url_for(theme.favicon) %>" type="image/x-icon">
+  
+  <!-- RSS -->
+  <link rel="alternate" href="<%- url_for(theme.rss) %>" title="<%= config.title %>" type="application/atom+xml">
+  
+  <%- partial('_partial/head/analytics') %>
+</head>
+<body class="cyber-body">
+  <!-- Glitch effect overlay -->
+  <div class="glitch-overlay"></div>
+  
+  <!-- Main container -->
+  <div class="cyber-container">
+    <!-- Header -->
+    <%- partial('_partial/header') %>
+    
+    <!-- Main content -->
+    <main class="cyber-main">
+      <div class="cyber-content">
+        <%- body %>
+      </div>
+      
+      <!-- Sidebar -->
+      <% if (theme.sidebar && theme.sidebar !== 'none') { %>
+        <%- partial('_partial/sidebar') %>
+      <% } %>
+    </main>
+    
+    <!-- Footer -->
+    <%- partial('_partial/footer') %>
+  </div>
+  
+  <!-- Scripts -->
+  <script src="<%- url_for(theme.js) %>/main.js"></script>
+  <%- partial('_partial/scripts') %>
+</body>
+</html>

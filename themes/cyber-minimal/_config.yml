@@ -1,0 +1,62 @@
+# Cyber Minimal Theme Configuration
+# 简约+赛博朋克风格主题
+
+# Menu
+menu:
+  Home: /
+  Archives: /archives
+  Tags: /tags
+  Categories: /categories
+  About: /about
+
+# Widgets
+widgets:
+  - search
+  - recent_posts
+  - categories
+  - tags
+
+# Sidebar settings
+sidebar: right
+sidebar_position: 1
+
+# Social links
+social:
+  GitHub: https://github.com/1jinbo
+  # Twitter: https://twitter.com/yourusername
+  # Email: mailto:your@email.com
+
+# Color Scheme - Cyberpunk Colors
+colors:
+  primary: "#00ff9d"  # 霓虹绿 - 主要强调色
+  secondary: "#ff00ff" # 霓虹粉 - 次要强调色
+  background: "#0a0a0a" # 深黑背景
+  surface: "#1a1a1a"   # 表面颜色
+  text: "#ffffff"      # 白色文字
+  text_secondary: "#b0b0b0" # 次要文字
+  accent: "#00d9ff"    # 霓虹蓝 - 点缀色
+  border: "#333333"    # 边框颜色
+
+# Typography
+font:
+  primary: "'Roboto Mono', 'Courier New', monospace"
+  secondary: "'Inter', 'Segoe UI', sans-serif"
+  size_base: "16px"
+  size_small: "14px"
+  size_large: "18px"
+
+# Animation
+animation:
+  enable: true
+  speed: "0.3s"
+
+# Code highlight
+code_highlight:
+  theme: "dark"
+  line_numbers: true
+
+# Miscellaneous
+favicon: /images/favicon.ico
+rss: /atom.xml
+google_analytics:
+baidu_analytics:

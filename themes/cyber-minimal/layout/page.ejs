@@ -1,0 +1,57 @@
+<%- partial('_partial/header') %>
+
+<main class="cyber-main">
+  <div class="cyber-content">
+    <article class="page-article">
+      <header class="page-header">
+        <h1 class="page-title"><%= page.title %></h1>
+        
+        <% if (page.date) { %>
+          <div class="page-meta">
+            <time datetime="<%= page.date.toISOString() %>">
+              <i class="far fa-calendar"></i>
+              <%= date(page.date, config.date_format) %>
+            </time>
+            
+            <% if (page.updated) { %>
+              <span class="page-updated">
+                <i class="fas fa-sync-alt"></i>
+                更新于: <%= date(page.updated, config.date_format) %>
+              </span>
+            <% } %>
+          </div>
+        <% } %>
+      </header>
+      
+      <div class="page-content">
+        <%- page.content %>
+      </div>
+      
+      <!-- 页面底部 -->
+      <footer class="page-footer">
+        <% if (theme.social) { %>
+          <div class="page-social">
+            <h3>联系我</h3>
+            <div class="social-links">
+              <% for (const [platform, url] of Object.entries(theme.social)) { %>
+                <a href="<%= url %>" class="social-link" target="_blank" rel="noopener">
+                  <i class="fab fa-<%= platform.toLowerCase() %>"></i>
+                  <span class="social-platform"><%= platform %></span>
+                </a>
+              <% } %>
+            </div>
+          </div>
+        <% } %>
+      </footer>
+    </article>
+  </div>
+  
+  <!-- 侧边栏 -->
+  <% if (theme.sidebar && theme.sidebar !== 'none') { %>
+    <aside class="cyber-sidebar">
+      <%- partial('_partial/sidebar') %>
+    </aside>
+  <% } %>
+</main>
+
+<%- partial('_partial/footer') %>

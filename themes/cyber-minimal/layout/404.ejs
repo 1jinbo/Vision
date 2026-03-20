@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="<%= config.language %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - 页面未找到 | <%= config.title %></title>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="<%- url_for(theme.css) %>/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="cyber-body">
+  <!-- Glitch effect overlay -->
+  <div class="glitch-overlay"></div>
+  
+  <!-- Main container -->
+  <div class="cyber-container">
+    <div class="error-page">
+      <div class="error-content">
+        <!-- 错误代码 -->
+        <div class="error-code">
+          <span class="digit">4</span>
+          <span class="digit glitch-digit">0</span>
+          <span class="digit">4</span>
+        </div>
+        
+        <!-- 错误标题 -->
+        <h1 class="error-title">页面未找到</h1>
+        
+        <!-- 错误描述 -->
+        <div class="error-description">
+          <p>看起来你访问的页面已经消失在数字空间中。</p>
+          <p>可能是链接错误、页面已被移除，或者它从未存在过。</p>
+        </div>
+        
+        <!-- 错误详情 -->
+        <div class="error-details">
+          <div class="error-info">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>错误代码: 404_NOT_FOUND</span>
+          </div>
+          <div class="error-info">
+            <i class="fas fa-clock"></i>
+            <span>时间: <span id="current-time"></span></span>
+          </div>
+          <div class="error-info">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>位置: 数字空间未知区域</span>
+          </div>
+        </div>
+        
+        <!-- 操作按钮 -->
+        <div class="error-actions">
+          <a href="<%- url_for('/') %>" class="error-btn primary">
+            <i class="fas fa-home"></i>
+            返回首页
+          </a>
+          <a href="<%- url_for('/archives') %>" class="error-btn secondary">
+            <i class="fas fa-archive"></i>
+            浏览归档
+          </a>
+          <button onclick="history.back()" class="error-btn accent">
+            <i class="fas fa-arrow-left"></i>
+            返回上一页
+          </button>
+        </div>
+        
+        <!-- 搜索框 -->
+        <div class="error-search">
+          <p>或者搜索你想要的内容：</p>
+          <form class="search-form" action="/search" method="get">
+            <input type="text" name="q" class="search-input" placeholder="输入关键词搜索...">
+            <button type="submit" class="search-button">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </div>
+        
+        <!-- 趣味提示 -->
+        <div class="error-hint">
+          <div class="hint-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="hint-content">
+            <h4>赛博空间小贴士</h4>
+            <p>在数字世界中，404错误就像赛博朋克城市中的暗巷——它们存在，但最好避免进入。如果你经常遇到这种情况，可能是时候检查你的神经链接了。</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 页脚 -->
+      <footer class="error-footer">
+        <div class="footer-links">
+          <a href="<%- url_for('/about') %>">关于</a>
+          <a href="https://github.com/1jinbo/Vision" target="_blank">GitHub</a>
+          <a href="/archives">归档</a>
+          <a href="/tags">标签</a>
+        </div>
+        <div class="footer-copyright">
+          &copy; <%= new Date().getFullYear() %> <%= config.author || config.title %> | Cyber Minimal Theme
+        </div>
+      </footer>
+    </div>
+  </div>
+  
+  <!-- Scripts -->
+  <script>
+    // 更新时间显示
+    function updateTime() {
+      const now = new Date();
+      const timeStr = now.toLocaleString('zh-CN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      });
+      document.getElementById('current-time').textContent = timeStr;
+    }
+    
+    // 初始更新
+    updateTime();
+    
+    // 每秒更新
+    setInterval(updateTime, 1000);
+    
+    // Glitch效果
+    const glitchDigit = document.querySelector('.glitch-digit');
+    setInterval(() => {
+      glitchDigit.style.textShadow = `
+        ${Math.random() * 4 - 2}px ${Math.random() * 4 - 2}px 0 #00ff9d,
+        ${Math.random() * 4 - 2}px ${Math.random() * 4 - 2}px 0 #ff00ff
+      `;
+      glitchDigit.style.color = Math.random() > 0.5 ? '#00ff9d' : '#ff00ff';
+    }, 100);
+    
+    // 鼠标移动效果
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      
+      document.querySelector('.error-content').style.transform = 
+        `translate(${x * 10 - 5}px, ${y * 10 - 5}px)`;
+    });
+  </script>
+  
+  <style>
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    
+    .error-content {
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      transition: transform 0.1s ease;
+    }
+    
+    .error-code {
+      font-size: 8rem;
+      font-weight: 900;
+      font-family: 'Roboto Mono', monospace;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+    
+    .digit {
+      display: inline-block;
+      color: var(--primary);
+      text-shadow: 
+        0 0 10px rgba(0, 255, 157, 0.5),
+        0 0 20px rgba(0, 255, 157, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .glitch-digit {
+      animation: glitch 0.5s infinite;
+    }
+    
+    @keyframes glitch {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(2px, -1px); }
+      60% { transform: translate(-1px, 1px); }
+      80% { transform: translate(1px, -2px); }
+    }
+    
+    .error-title {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 2.5rem;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+    
+    .error-description {
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    
+    .error-details {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    
+    .error-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+    }
+    
+    .error-info:last-child {
+      margin-bottom: 0;
+    }
+    
+    .error-info i {
+      color: var(--secondary);
+      width: 20px;
+    }
+    
+    .error-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .error-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      border: 2px solid;
+      border-radius: 8px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .error-btn.primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--bg-dark);
+    }
+    
+    .error-btn.primary:hover {
+      background: transparent;
+      color: var(--primary);
+      box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+    }
+    
+    .error-btn.secondary {
+      background: transparent;
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+    
+    .error-btn.secondary:hover {
+      background: var(--secondary);
+      color: var(--bg-dark);
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+    }
+    
+    .error-btn.accent {
+      background: transparent;
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    
+    .error-btn.accent:hover {
+      background: var(--accent);
+      color: var(--bg-dark);
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+    }
+    
+    .error-search {
+      margin-bottom: 2rem;
+    }
+    
+    .error-search p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+    
+    .error-search .search-form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .error-hint {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      background: rgba(0, 255, 157, 0.05);
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      text-align: left;
+    }
+    
+    .hint-icon {
+      font-size: 2rem;
+      color: var(--primary);
+    }
+    
+    .hint-content h4 {
+      font-family: 'Roboto Mono', monospace;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+    
+    .hint-content p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+    
+    .error-footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      width: 100%;
+      text-align: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+    
+    .footer-copyright {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-family: 'Roboto Mono', monospace;
+    }
+    
+    @media (max-width: 768px) {
+      .error-code {
+        font-size: 5rem;
+      }
+      
+      .error-title {
+        font-size: 2rem;
+      }
+      
+      .error-description {
+        font-size: 1rem;
+      }
+      
+      .error-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+      }
+      
+      .error-hint {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</body>
+</html>

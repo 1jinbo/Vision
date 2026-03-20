@@ -1,0 +1,25 @@
+<% if (page.total > 1) { %>
+  <nav class="pagination">
+    <% if (page.prev) { %>
+      <a class="extend prev" href="<%- url_for(page.prev_link) %>">
+        <i class="fas fa-chevron-left"></i> 上一页
+      </a>
+    <% } %>
+    
+    <% for (let i = 1; i <= page.total; i++) { %>
+      <% if (i === page.current) { %>
+        <span class="page-number current"><%= i %></span>
+      <% } else { %>
+        <a class="page-number" href="<%- url_for(page.base + (i === 1 ? '' : i + '/')) %>">
+          <%= i %>
+        </a>
+      <% } %>
+    <% } %>
+    
+    <% if (page.next) { %>
+      <a class="extend next" href="<%- url_for(page.next_link) %>">
+        下一页 <i class="fas fa-chevron-right"></i>
+      </a>
+    <% } %>
+  </nav>
+<% } %>

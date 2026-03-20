@@ -1,0 +1,136 @@
+<%- partial('_partial/header') %>
+
+<main class="cyber-main">
+  <div class="cyber-content">
+    <article class="post-article">
+      <header class="post-header">
+        <h1 class="post-title"><%= page.title %></h1>
+        
+        <div class="post-meta">
+          <% if (page.date) { %>
+            <span class="post-date">
+              <i class="far fa-calendar"></i>
+              <time datetime="<%= page.date.toISOString() %>">
+                <%= date(page.date, config.date_format) %>
+              </time>
+            </span>
+          <% } %>
+          
+          <% if (page.updated) { %>
+            <span class="post-updated">
+              <i class="fas fa-sync-alt"></i>
+              更新于: <%= date(page.updated, config.date_format) %>
+            </span>
+          <% } %>
+          
+          <% if (page.categories && page.categories.length > 0) { %>
+            <span class="post-categories">
+              <i class="far fa-folder"></i>
+              <% page.categories.each(function(category, index) { %>
+                <a href="<%- url_for(category.path) %>"><%= category.name %></a>
+                <% if (index < page.categories.length - 1) { %>, <% } %>
+              <% }) %>
+            </span>
+          <% } %>
+          
+          <% if (page.tags && page.tags.length > 0) { %>
+            <span class="post-tags">
+              <i class="fas fa-tags"></i>
+              <% page.tags.each(function(tag, index) { %>
+                <a href="<%- url_for(tag.path) %>"><%= tag.name %></a>
+                <% if (index < page.tags.length - 1) { %>, <% } %>
+              <% }) %>
+            </span>
+          <% } %>
+          
+          <% if (page.wordcount) { %>
+            <span class="post-wordcount">
+              <i class="fas fa-file-alt"></i>
+              <%= page.wordcount %> 字
+            </span>
+          <% } %>
+          
+          <% if (page.min2read) { %>
+            <span class="post-reading-time">
+              <i class="far fa-clock"></i>
+              阅读约 <%= page.min2read %> 分钟
+            </span>
+          <% } %>
+        </div>
+      </header>
+      
+      <div class="post-content">
+        <%- page.content %>
+      </div>
+      
+      <!-- 文章底部 -->
+      <footer class="post-footer">
+        <!-- 分享按钮 -->
+        <div class="post-share">
+          <span class="share-title">分享:</span>
+          <a href="https://twitter.com/intent/tweet?text=<%= encodeURIComponent(page.title) %>&url=<%= encodeURIComponent(page.permalink) %>" 
+             target="_blank" class="share-btn twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=<%= encodeURIComponent(page.permalink) %>" 
+             target="_blank" class="share-btn facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://t.me/share/url?url=<%= encodeURIComponent(page.permalink) %>&text=<%= encodeURIComponent(page.title) %>" 
+             target="_blank" class="share-btn telegram">
+            <i class="fab fa-telegram"></i>
+          </a>
+        </div>
+        
+        <!-- 上一篇/下一篇 -->
+        <div class="post-navigation">
+          <% if (page.prev) { %>
+            <a href="<%- url_for(page.prev.path) %>" class="prev-post">
+              <i class="fas fa-arrow-left"></i>
+              <span class="nav-title"><%= page.prev.title %></span>
+            </a>
+          <% } %>
+          
+          <% if (page.next) { %>
+            <a href="<%- url_for(page.next.path) %>" class="next-post">
+              <span class="nav-title"><%= page.next.title %></span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          <% } %>
+        </div>
+        
+        <!-- 相关文章 -->
+        <% if (page.related_posts && page.related_posts.length > 0) { %>
+          <div class="related-posts">
+            <h3 class="related-title">相关文章</h3>
+            <div class="related-list">
+              <% page.related_posts.slice(0, 3).forEach(function(post) { %>
+                <a href="<%- url_for(post.path) %>" class="related-post">
+                  <span class="related-post-title"><%= post.title %></span>
+                  <span class="related-post-date"><%= date(post.date, 'MM-DD') %></span>
+                </a>
+              <% }) %>
+            </div>
+          </div>
+        <% } %>
+      </footer>
+    </article>
+    
+    <!-- 评论区域 -->
+    <% if (theme.comments && theme.comments.enable) { %>
+      <section class="post-comments">
+        <h3 class="comments-title">评论</h3>
+        <%- partial('_partial/comments') %>
+      </section>
+    <% } %>
+  </div>
+  
+  <!-- 侧边栏 -->
+  <% if (theme.sidebar && theme.sidebar !== 'none') { %>
+    <aside class="cyber-sidebar">
+      <%- partial('_partial/sidebar') %>
+    </aside>
+  <% } %>
+</main>
+
+<%- partial('_partial/footer') %>
